@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Techo Claro | Guía Interactiva de Vivienda VIS (SMMLV 2026)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- CONTENEDOR ÚNICO PRINCIPAL -->
+    <main class="single-container" aria-live="polite">
+      <!-- Cabecera compacta + Barra de 5 Tabs -->
+      <header class="wizard-header">
+        <div class="brand-row">
+          <div class="brand">
+            <span class="brand-icon" aria-hidden="true">🏠</span>
+            <div>
+              <h1 class="brand-title">Mi Techo Claro</h1>
+              <span class="brand-subtitle">Vivienda VIS en Colombia · Base SMMLV 2026 ($1.750.905)</span>
+            </div>
+          </div>
+          <button type="button" class="btn-colombia-stats" data-popup-key="panorama_colombia">
+            🇨🇴 ¿Cómo está Colombia?
+          </button>
+        </div>
+
+        <!-- Navegación por 5 tabs dentro del mismo contenedor -->
+        <nav class="stepper stepper-5" aria-label="Pasos de la guía">
+          <button type="button" class="step-pill active" data-step="1">
+            <span class="step-num">1</span>
+            <span class="step-label">Tu Grupo</span>
+          </button>
+          <button type="button" class="step-pill" data-step="2">
+            <span class="step-num">2</span>
+            <span class="step-label">Costo Real</span>
+          </button>
+          <button type="button" class="step-pill" data-step="3">
+            <span class="step-num">3</span>
+            <span class="step-label">Pagar Menos</span>
+          </button>
+          <button type="button" class="step-pill" data-step="4">
+            <span class="step-num">4</span>
+            <span class="step-label">Mora y Dudas</span>
+          </button>
+          <button type="button" class="step-pill" data-step="5">
+            <span class="step-num">5</span>
+            <span class="step-label">Resumen</span>
+          </button>
+        </nav>
+      </header>
+
+      <!-- CUERPO CAMBIANTE (UN TAB A LA VEZ) -->
+      <div class="wizard-body">
+        <!-- TAB 1: TU GRUPO EN COLOMBIA -->
+        <section class="step-view active" id="step-1">
+          <div class="step-intro">
+            <h2>¿Cuánto suman los ingresos de tu hogar al mes?</h2>
+            <p>Te ubicamos en el grupo y percentil de familias colombianas y calculamos tu subsidio VIS 2026.</p>
+          </div>
+
+          <div class="interactive-block">
+            <div class="slider-header">
+              <span>Ingreso familiar mensual</span>
+              <strong class="big-value" id="display-ingreso">$3.501.810</strong>
+            </div>
+            <input type="range" id="input-ingreso" min="1000000" max="15000000" step="100000" value="3501810" />
+            <div class="chip-row">
+              <button type="button" class="chip-btn" data-ingreso="1750905">1 SMMLV</button>
+              <button type="button" class="chip-btn active" data-ingreso="3501810">2 SMMLV</button>
+              <button type="button" class="chip-btn" data-ingreso="7003620">4 SMMLV</button>
+              <button type="button" class="chip-btn" data-ingreso="10505430">6 SMMLV</button>
+              <button type="button" class="chip-help" data-popup-key="smmlv">❓ ¿Qué es SMMLV?</button>
+            </div>
+
+            <div class="inline-question">
+              <span>¿Tienen Caja de Compensación?</span>
+              <div class="mini-toggle">
+                <button type="button" class="toggle-btn active" data-caja="si">Sí</button>
+                <button type="button" class="toggle-btn" data-caja="no">No</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Resultado visual limpio -->
+          <div class="summary-card">
+            <div class="summary-top">
+              <span class="badge-group" id="grupo-titulo">Grupo 2 · Acceso VIS con Subsidio</span>
+              <span class="badge-smmlv" id="ingreso-smmlv-badge">2.0 SMMLV · Percentil 62</span>
+            </div>
+            <p class="summary-text" id="grupo-descripcion"></p>
+
+            <!-- Termómetro minimalista -->
+            <div class="thermometer-bar">
+              <div class="thermometer-segment seg-1"></div>
+              <div class="thermometer-segment seg-2"></div>
+              <div class="thermometer-segment seg-3"></div>
+              <div class="thermometer-segment seg-4"></div>
+              <div class="thermometer-marker" id="grupo-marker" style="left: 45%;">
+                <span class="marker-label">Tú</span>
+              </div>
+            </div>
+            <div class="thermometer-legend">
+              <span>&lt;1 SMMLV (35%)</span>
+              <span>1-2 SMMLV (33%)</span>
+              <span>2-4 SMMLV (20%)</span>
+              <span>&gt;4 SMMLV (12%)</span>
+            </div>
+
+            <div class="kpi-row">
+              <div class="kpi-box">
+                <span class="kpi-label">Tu subsidio estimado (2026)</span>
+                <strong class="kpi-val" id="grupo-subsidio">$52.527.150</strong>
+                <small id="grupo-subsidio-detalle">30 salarios mínimos</small>
+              </div>
+              <div class="kpi-box">
+                <span class="kpi-label">Cuota máxima por ley (40%)</span>
+                <strong class="kpi-val" id="grupo-cuota-max">$1.400.724/mes</strong>
+                <small>Tope Ley de Vivienda</small>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 2: CALCULADORA DEL COSTO REAL -->
+        <section class="step-view" id="step-2">
+          <div class="step-intro">
+            <h2>¿Cuánto cuesta la casa vs. cuánto pagas de verdad?</h2>
+            <p>Elige el precio de la vivienda VIS (con topes SMMLV 2026) y los años del crédito.</p>
+          </div>
+
+          <div class="interactive-block compact-controls">
+            <div class="control-item">
+              <div class="slider-header">
+                <span>Precio de la vivienda <small id="casa-smmlv-badge">(135 SMMLV)</small></span>
+                <strong id="display-valor-casa">$236.372.175</strong>
+              </div>
+              <input type="range" id="input-valor-casa" min="130000000" max="262635750" step="1750905" value="236372175" />
+              <div class="chip-row">
+                <button type="button" class="chip-btn" data-casa="157581450">VIP (90 SM)</button>
+                <button type="button" class="chip-btn active" data-casa="236372175">VIS (135 SM)</button>
+                <button type="button" class="chip-btn" data-casa="262635750">VIS Ciudad (150 SM)</button>
+                <button type="button" class="chip-help" data-popup-key="vis">❓ ¿VIP o VIS?</button>
+              </div>
+            </div>
+
+            <div class="control-grid-3">
+              <div class="mini-control">
+                <label for="input-cuota-inicial">Cuota Inicial: <strong id="inicial-porcentaje-badge">30%</strong></label>
+                <input type="range" id="input-cuota-inicial" min="30" max="70" step="5" value="30" />
+                <small id="display-cuota-inicial">$70.911.653</small>
+              </div>
+              <div class="mini-control">
+                <label for="input-plazo">Plazo: <strong id="display-plazo">20 años</strong></label>
+                <input type="range" id="input-plazo" min="5" max="30" step="1" value="20" />
+                <small id="display-cuotas-num">240 cuotas</small>
+              </div>
+              <div class="mini-control">
+                <label for="input-tasa">Tasa: <strong id="display-tasa">11.5% E.A.</strong></label>
+                <input type="range" id="input-tasa" min="7" max="16" step="0.5" value="11.5" />
+                <small>Mes: <span id="display-tasa-mv">0.91%</span></small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Resultado Costo Real -->
+          <div class="summary-card">
+            <div class="quota-header">
+              <div>
+                <span class="kpi-label">Tu cuota mensual (con seguros)</span>
+                <div class="quota-main" id="res-cuota-total">$1.782.100 <small>/mes</small></div>
+              </div>
+              <span class="viability-pill" id="viabilidad-pill">✅ Cuota viable</span>
+            </div>
+
+            <div class="stacked-bar-container">
+              <div class="stacked-bar">
+                <div class="bar-seg seg-capital" id="bar-capital" style="width: 39%;"></div>
+                <div class="bar-seg seg-interest" id="bar-interest" style="width: 61%;"></div>
+              </div>
+              <div class="stacked-legend">
+                <span>🔵 Te prestan: <strong id="res-prestamo">$165.5M</strong></span>
+                <span>🟠 Intereses y seguros: <strong id="res-intereses">$262.2M</strong></span>
+              </div>
+            </div>
+
+            <div class="shock-strip">
+              <span>Terminas pagando al banco <strong id="res-total-banco">$427.710.000</strong></span>
+              <span class="shock-mult" id="res-multiplicador">2.58x lo prestado</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 3: TRUCOS PARA PAGAR MENOS -->
+        <section class="step-view" id="step-3">
+          <div class="step-intro">
+            <h2>El truco legal para quitarle años a tu crédito</h2>
+            <p>La Ley 546 te permite dar abonos extra directo a capital sin multas. Mira qué pasa si pones un poco más al mes:</p>
+          </div>
+
+          <div class="interactive-block">
+            <div class="slider-header">
+              <span>Abono extra mensual a capital</span>
+              <strong class="big-value emerald-text" id="display-abono-extra">+ $180.000 / mes</strong>
+            </div>
+            <input type="range" id="input-abono-extra" min="50000" max="1000000" step="25000" value="180000" />
+            <div class="chip-row">
+              <button type="button" class="chip-btn" data-abono="75000">+$75 mil</button>
+              <button type="button" class="chip-btn active" data-abono="180000">+$180 mil</button>
+              <button type="button" class="chip-btn" data-abono="350000">+$350 mil</button>
+              <button type="button" class="chip-btn" data-abono="600000">+$600 mil</button>
+            </div>
+
+            <div class="tricks-pills">
+              <label class="trick-toggle">
+                <input type="checkbox" id="check-endoso" checked />
+                <span>🛡️ Endosar seguros (-40% en pólizas)</span>
+              </label>
+              <label class="trick-toggle">
+                <input type="checkbox" id="check-compra-cartera" />
+                <span>🏦 Compra de cartera (-1.5% tasa E.A.)</span>
+              </label>
+              <button type="button" class="chip-help" data-popup-key="plazo_vs_cuota">💡 ¿Bajar plazo o cuota?</button>
+            </div>
+          </div>
+
+          <div class="summary-card savings-card">
+            <div class="savings-headline">
+              <span class="badge-emerald">Resultado con tus trucos</span>
+              <h3 id="truco-ahorro-dinero">Te ahorras $82.400.000</h3>
+              <p id="truco-ahorro-tiempo">Terminas de pagar <strong>5 años y 7 meses antes</strong> (67 cuotas menos).</p>
+            </div>
+
+            <div class="compare-mini">
+              <div class="cmp-box">
+                <span>Sin trucos</span>
+                <strong id="ba-antes-tiempo">20 años (240 cuotas)</strong>
+                <small id="ba-antes-total">Pagas $427.7M</small>
+              </div>
+              <div class="cmp-arrow">➔</div>
+              <div class="cmp-box highlight">
+                <span>Con trucos</span>
+                <strong id="ba-despues-tiempo">14.4 años (173 cuotas)</strong>
+                <small id="ba-despues-total">Pagas $345.3M</small>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 4: MORA, PROCESOS LEGALES Y DICCIONARIO SIMPLE -->
+        <section class="step-view" id="step-4">
+          <div class="step-intro">
+            <h2>Sin miedo: ¿Qué pasa si te atrasas y qué significan los términos?</h2>
+            <p>Haz clic en cualquier tarjeta o botón para abrir una ventana emergente con la explicación clara.</p>
+          </div>
+
+          <div class="cards-subtitle">⏳ Línea de tiempo si entras en mora (Haz clic para ver qué hacer):</div>
+          <div class="interactive-cards-3">
+            <button type="button" class="info-tile" data-popup-key="mora_30">
+              <span class="tile-tag">Días 1 a 30</span>
+              <strong>Atraso inicial</strong>
+              <small>Haz clic para ver tus derechos ↗</small>
+            </button>
+            <button type="button" class="info-tile" data-popup-key="mora_90">
+              <span class="tile-tag warn">Días 30 a 90</span>
+              <strong>Cobro Prejurídico</strong>
+              <small>Aviso 20 días antes de reporte ↗</small>
+            </button>
+            <button type="button" class="info-tile" data-popup-key="mora_juridico">
+              <span class="tile-tag danger">Más de 90 días</span>
+              <strong>Proceso Jurídico</strong>
+              <small>Cómo frenar un embargo ↗</small>
+            </button>
+          </div>
+
+          <div class="cards-subtitle">📖 Palabras de bancos traducidas al español (Haz clic para abrir):</div>
+          <div class="glossary-chips">
+            <button type="button" class="glossary-pill" data-popup-key="uvr">📈 Pesos vs. UVR</button>
+            <button type="button" class="glossary-pill" data-popup-key="fiducia">🔒 ¿Qué es Fiducia?</button>
+            <button type="button" class="glossary-pill" data-popup-key="escrituras">📝 Gastos de Escritura (4%)</button>
+            <button type="button" class="glossary-pill" data-popup-key="endoso">🛡️ Endoso de Seguros</button>
+            <button type="button" class="glossary-pill" data-popup-key="cesantias">💼 Seguro de Desempleo</button>
+          </div>
+        </section>
+
+        <!-- TAB 5: RESUMEN PERSONALIZADO Y CIFRAS OFICIALES COLOMBIA -->
+        <section class="step-view" id="step-5">
+          <div class="step-intro">
+            <h2>Tu Resumen Personalizado y Panorama Nacional VIS</h2>
+            <p>Síntesis de los datos que ingresaste, tu ubicación poblacional y la estimación oficial de beneficiarios VIS en Colombia.</p>
+          </div>
+
+          <!-- Resumen de los datos del usuario + grupo percentil -->
+          <div class="user-summary-grid">
+            <div class="sum-item">
+              <span class="sum-label">Tu Ingreso y Grupo Percentil</span>
+              <strong class="sum-value" id="sum-grupo-percentil">Grupo 2 · Percentil 62</strong>
+              <small id="sum-ingreso-detalle">$3.501.810 (2.0 SMMLV)</small>
+            </div>
+            <div class="sum-item">
+              <span class="sum-label">Subsidio VIS Estimado</span>
+              <strong class="sum-value" id="sum-subsidio">$52.527.150</strong>
+              <small id="sum-subsidio-sm">30 SMMLV de 2026</small>
+            </div>
+            <div class="sum-item">
+              <span class="sum-label">Vivienda y Préstamo</span>
+              <strong class="sum-value" id="sum-casa-prestamo">$236.4M (Préstamo: $165.5M)</strong>
+              <small id="sum-cuota-mensual">Cuota inicial: 30% · Mensual: $1.782.100</small>
+            </div>
+            <div class="sum-item highlight">
+              <span class="sum-label">Tu Ahorro con Trucos (Ley 546)</span>
+              <strong class="sum-value emerald-text" id="sum-ahorro-total">$82.400.000 ahorrados</strong>
+              <small id="sum-tiempo-ahorrado">Pagas en 14.4 años en vez de 20 años</small>
+            </div>
+          </div>
+
+          <!-- Tabla estadística solicitada -->
+          <div class="table-container">
+            <table class="data-table">
+              <caption>Estimación de Vivienda Nueva VIS Financiada y Beneficiarios (Colombia, 2024)</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Indicador</th>
+                  <th scope="col">Cifra / Dato</th>
+                  <th scope="col">Fuente o Metodología aplicada</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Total desembolsos para vivienda VIS</strong></td>
+                  <td>122.700</td>
+                  <td>Operación estadística Financiación de Vivienda (FIVI) / Referencias del sector</td>
+                </tr>
+                <tr>
+                  <td><strong>Participación de vivienda nueva</strong></td>
+                  <td>87,4%</td>
+                  <td>Anuario de Vivienda de América Latina y el Caribe (2025)</td>
+                </tr>
+                <tr>
+                  <td><strong>Viviendas nuevas VIS financiadas</strong></td>
+                  <td><strong>107.240</strong></td>
+                  <td>Cálculo proporcional: 122.700 × 0,874 = 107.239,8</td>
+                </tr>
+                <tr>
+                  <td><strong>Promedio de personas por hogar</strong></td>
+                  <td>2,86</td>
+                  <td>Encuesta Nacional de Calidad de Vida (ECV 2024) - DANE</td>
+                </tr>
+                <tr>
+                  <td><strong>Personas potencialmente beneficiadas</strong></td>
+                  <td><strong>306.706</strong></td>
+                  <td>Estimación cuantitativa: 107.239,8 × 2,86 = 306.705,8</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="3">
+                    <em>Nota: Los valores corresponden a una estimación indirecta calculada a partir del promedio nacional de integrantes por hogar reportado por el DANE.</em>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- PIE DE NAVEGACIÓN DEL CONTENEDOR -->
+      <footer class="wizard-footer">
+        <button type="button" class="btn-nav btn-prev" id="btn-prev" disabled>← Anterior</button>
+        <span class="step-dots" id="step-indicator">Paso 1 de 5</span>
+        <button type="button" class="btn-nav btn-next" id="btn-next">Siguiente paso →</button>
+      </footer>
+    </main>
+  </div>
+
+  <!-- VENTANA EMERGENTE (MODAL POPUP) AL HACER CLIC -->
+  <div class="modal-overlay" id="popup-overlay" role="dialog" aria-modal="true" aria-labelledby="popup-title" hidden>
+    <div class="modal-window">
+      <div class="modal-header">
+        <span class="modal-icon" id="popup-icon" aria-hidden="true">💡</span>
+        <h3 class="modal-title" id="popup-title">Información clave</h3>
+        <button type="button" class="modal-close-x" id="popup-close-x" aria-label="Cerrar ventana">✕</button>
+      </div>
+      <div class="modal-body">
+        <p id="popup-message"></p>
+        <div class="modal-tip-box" id="popup-tip-box" hidden>
+          <strong id="popup-tip-text"></strong>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-modal-ok" id="popup-btn-ok">¡Entendido!</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
